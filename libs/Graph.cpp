@@ -1,32 +1,18 @@
 #include "Graph.h"
 
-GraphEdge::GraphEdge() = default;
+std::vector<GraphEdge> graphToEdgeList(const Graph& graph) {
+    std::vector<GraphEdge> edges;
 
-GraphEdge::GraphEdge(int u, int v, int w) : u(u), v(v), w(w) {}
-
-GraphSuccessor::GraphSuccessor() = default;
-
-GraphSuccessor::GraphSuccessor(int u, int w) : u(u), w(w) {}
-
-Graph::Graph() : numNode(0) {}
-
-Graph::Graph(int numNode, const std::vector<GraphEdge>& edges) : numNode(numNode), edges(edges) {}
-
-UndirectedGraph::UndirectedGraph() : Graph() {}
-
-UndirectedGraph::UndirectedGraph(int numNode, const std::vector<GraphEdge>& edges) : Graph(numNode, edges) {
-    adj.assign(edges.size(), std::list<GraphSuccessor>());
-    for (int i = 0; i < (int)edges.size(); ++i) {
-        adj[edges[i].u].emplace_back(edges[i].v, edges[i].w);
-        adj[edges[i].v].emplace_back(edges[i].u, edges[i].w);
+    for (int u = 1; u <= graph.numNode; ++u) {
+        for (const auto& [v, w] : graph.adj[u]) {
+            // there exists {u, v, w} and {v, u, w}
+            // we only consider one of them
+            if (u < v) {
+                edges.push_back({u, v, w});
+			}
+        }
     }
+
+    return edges;
 }
 
-DirectedGraph::DirectedGraph() : Graph() {}
-
-DirectedGraph::DirectedGraph(int numNode, const std::vector<GraphEdge>& edges) : Graph(numNode, edges) {
-    adj.assign(edges.size(), std::list<GraphSuccessor>());
-    for (int i = 0; i < (int)edges.size(); ++i) {
-        adj[edges[i].u].emplace_back(edges[i].v, edges[i].w);
-    }
-}
