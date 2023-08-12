@@ -15,4 +15,3 @@ std::vector<GraphEdge> graphToEdgeList(const Graph& graph) {
 
     return edges;
 }
-
