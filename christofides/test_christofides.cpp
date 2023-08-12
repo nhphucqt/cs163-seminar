@@ -24,6 +24,7 @@ int main() {
     return 0;
 }
 
+// Example:
 // 6 15
 // 1 2 27
 // 1 3 17
