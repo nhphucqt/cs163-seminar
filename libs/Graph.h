@@ -17,5 +17,6 @@ struct Graph {
 };
 
 std::vector<GraphEdge> graphToEdgeList(const Graph& graph);
+std::vector<std::vector<int>> graphToAdjMatrix(const Graph& graph);
 
 #endif
